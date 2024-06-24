@@ -27,23 +27,23 @@
   }
 }
 @property --myColor1 {
-  syntax: '<color>';
+  syntax: "<color>";
   initial-value: #222;
   inherits: false;
 }
 @property --myColor2 {
-  syntax: '<color>';
+  syntax: "<color>";
   initial-value: #222;
   inherits: false;
 }
 @media (prefers-color-scheme: dark) {
   @property --myColor1 {
-    syntax: '<color>';
+    syntax: "<color>";
     initial-value: rgba(255, 255, 255, 0.88);
     inherits: false;
   }
   @property --myColor2 {
-    syntax: '<color>';
+    syntax: "<color>";
     initial-value: rgba(255, 255, 255, 0.88);
     inherits: false;
   }
