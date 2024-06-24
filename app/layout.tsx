@@ -14,8 +14,8 @@ export default function RootLayout({
         <body className="mx-auto max-w-2xl bg-[--bg] px-5 py-12 text-[--text]">
           <header className="mb-14 flex flex-row place-content-between">
             <HomeLink />
-            <span className="relative top-[4px] italic ">by
-              <Link href="https://www.yuque.com/zhemu-emxtq" target="_blank" className='ml-2'>
+            <span className="relative top-[4px] italic ">              by{" "}
+              <Link href="https://www.yuque.com/zhemu-emxtq" target="_blank" >
                 <img
                   alt="Zhe Mu"
                   src="https://avatars.githubusercontent.com/u/82502913"

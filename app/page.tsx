@@ -1,10 +1,18 @@
 import { readdir, readFile } from 'fs/promises';
 import matter from 'gray-matter';
+import Link from './Link';
 interface IPostData {
   slug: string;
   title: string;
   date: string;
 }
+
+export const metadata = {
+  title: "wooddashboard — A blog by Zhe Mu",
+  description: "A personal blog by Zhe Mu",
+};
+
+
 export async function getPosts(): Promise<IPostData[]> {
   try {
     const entries = await readdir('./public/', { withFileTypes: true });
@@ -33,5 +41,11 @@ export async function getPosts(): Promise<IPostData[]> {
 }
 export default async function Home() {
   const posts = await getPosts();
-  return <div className="relative -top-[10px] flex flex-col gap-8">1111</div>;
+  return <div className="relative -top-[10px] flex flex-col gap-8">
+    {posts.map((post =>
+      <Link key={post.slug} className='block py-4 hover:scale-[1.0005]' href={`/${post.slug}/`}>
+        <article> {post.title}</article>
+      </Link>
+    ))}
+  </div>;
 }
