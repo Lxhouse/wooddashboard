@@ -1,22 +1,14 @@
 ---
-title: 'A Chain Reaction'
-date: '2023-12-11'
-spoiler: 'The limits of my language mean the limits of my world.'
+title: "链式反应"
+date: "2023-12-11"
+spoiler: "我的语言的限制就是我的世界的限制。"
 ---
 
-I wrote a bit of JSX in my editor:
+我在编辑器中写了一些 JSX 代码：
 
 ```js
 <p className="text-2xl font-sans text-purple-400 dark:text-purple-500">
-  Hello, <i>Alice</i>!
-</p>
-```
-
-Right now, this information only exists on _my_ device. But with a bit of luck, it will travel through time and space to _your_ device, and appear on _your_ screen.
-
-```js eval
-<p className="text-2xl font-sans text-purple-400 dark:text-purple-500">
-  Hello, <i>Alice</i>!
+  你好，<i>Alice</i>！
 </p>
 ```
 
@@ -100,7 +92,7 @@ For example, `alice` does not mean anything until I define `alice`:
 
 ```js
 const alice = {
-  firstName: 'Alice',
+  firstName: "Alice",
   birthYear: 1970,
 };
 ```
@@ -161,7 +153,7 @@ function Greeting({ person }) {
 }
 
 const alice = {
-  firstName: 'Alice',
+  firstName: "Alice",
   birthYear: 1970,
 };
 
@@ -243,7 +235,7 @@ function Greeting({ person }) {
 }
 
 const alice = {
-  firstName: 'Alice',
+  firstName: "Alice",
   birthYear: 1970,
 };
 
@@ -316,9 +308,9 @@ Let's split the logic in two cases, and skip translating the built-ins for now:
 ```js {3,5-7}
 function translateForBrowser(originalJSX) {
   const { type, props } = originalJSX;
-  if (typeof type === 'function') {
+  if (typeof type === "function") {
     return type(props);
-  } else if (typeof type === 'string') {
+  } else if (typeof type === "string") {
     return originalJSX;
   }
 }
@@ -351,9 +343,9 @@ Let's fix `translateForBrowser` to translate any built-in tag's children:
 ```js {6-12}
 function translateForBrowser(originalJSX) {
   const { type, props } = originalJSX;
-  if (typeof type === 'function') {
+  if (typeof type === "function") {
     return type(props);
-  } else if (typeof type === 'string') {
+  } else if (typeof type === "string") {
     return {
       type,
       props: {
@@ -424,10 +416,10 @@ Luckily, there is an easy way I can solve this. When I call a function like `Exp
 ```js {4-5}
 function translateForBrowser(originalJSX) {
   const { type, props } = originalJSX;
-  if (typeof type === 'function') {
+  if (typeof type === "function") {
     const returnedJSX = type(props);
     return translateForBrowser(returnedJSX);
-  } else if (typeof type === 'string') {
+  } else if (typeof type === "string") {
     return {
       type,
       props: {
@@ -443,17 +435,17 @@ I also need to stop the process when there's nothing left to translate, like if 
 
 ```js {2-7}
 function translateForBrowser(originalJSX) {
-  if (originalJSX == null || typeof originalJSX !== 'object') {
+  if (originalJSX == null || typeof originalJSX !== "object") {
     return originalJSX;
   }
   if (Array.isArray(originalJSX)) {
     return originalJSX.map(translateForBrowser);
   }
   const { type, props } = originalJSX;
-  if (typeof type === 'function') {
+  if (typeof type === "function") {
     const returnedJSX = type(props);
     return translateForBrowser(returnedJSX);
-  } else if (typeof type === 'string') {
+  } else if (typeof type === "string") {
     return {
       type,
       props: {

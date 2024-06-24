@@ -7,6 +7,7 @@ interface IPostData {
   slug: string;
   title: string;
   date: string;
+  spoiler: string
 }
 
 export const metadata = {
@@ -14,7 +15,7 @@ export const metadata = {
   description: "A personal blog by Zhe Mu",
 };
 
-
+/** 获取文章列表 */
 export async function getPosts(): Promise<IPostData[]> {
   try {
     const entries = await readdir('./public/', { withFileTypes: true });
@@ -41,6 +42,8 @@ export async function getPosts(): Promise<IPostData[]> {
     throw error;
   }
 }
+
+
 /** 文章标题 */
 function PostTitle({ post }: { post: IPostData }) {
   let lightStart = new Color("lab(63 59.32 -1.47)");
@@ -61,12 +64,26 @@ function PostTitle({ post }: { post: IPostData }) {
     {post?.title || ''}
   </h2>
 }
+function PostSubtitle({ post }: { post: IPostData }) {
+  return <p className="mt-1">{post.spoiler}</p>;
+}
+function PostMeta({ post }: { post: IPostData }) {
+  return (
+    <p className="text-[13px] text-gray-700 dark:text-gray-300">
+      {new Date(post.date).toLocaleDateString("zh-CN", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      })}
+    </p>
+  );
+}
 export default async function Home() {
   const posts = await getPosts();
-  return <div className="relative -top-[10px] flex flex-col gap-8">
+  return <div className="relative -top-[10px] flex flex-col gap-6">
     {posts.map((post =>
-      <Link key={post.slug} className='block py-4 hover:scale-[1.0005]' href={`/${post.slug}/`}>
-        <article> <PostTitle post={post} /></article>
+      <Link key={post.slug} className='block py-4 hover:scale-[1.005]' href={`/${post.slug}/`}>
+        <article> <PostTitle post={post} />      <PostMeta post={post} /><PostSubtitle post={post} /></article>
       </Link>
     ))}
   </div>;
