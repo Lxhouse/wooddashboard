@@ -1,5 +1,5 @@
 import { readdir, readFile } from 'fs/promises';
-import Color from "colorjs.io";
+import Color from 'colorjs.io';
 import matter from 'gray-matter';
 import Link from './Link';
 import { sans } from './fonts';
@@ -7,12 +7,12 @@ interface IPostData {
   slug: string;
   title: string;
   date: string;
-  spoiler: string
+  spoiler: string;
 }
 
 export const metadata = {
-  title: "wooddashboard — A blog by Zhe Mu",
-  description: "A personal blog by Zhe Mu",
+  title: 'wooddashboard — A blog by Zhe Mu',
+  description: 'A personal blog by Zhe Mu',
 };
 
 /** 获取文章列表 */
@@ -43,26 +43,35 @@ export async function getPosts(): Promise<IPostData[]> {
   }
 }
 
-
 /** 文章标题 */
 function PostTitle({ post }: { post: IPostData }) {
-  let lightStart = new Color("lab(63 59.32 -1.47)");
-  let lightEnd = new Color("lab(33 42.09 -43.19)");
+  let lightStart = new Color('lab(63 59.32 -1.47)');
+  let lightEnd = new Color('lab(33 42.09 -43.19)');
   let lightRange = lightStart.range(lightEnd);
-  let darkStart = new Color("lab(81 32.36 -7.02)");
-  let darkEnd = new Color("lab(78 19.97 -36.75)");
+  let darkStart = new Color('lab(81 32.36 -7.02)');
+  let darkEnd = new Color('lab(78 19.97 -36.75)');
   let darkRange = darkStart.range(darkEnd);
   let today = new Date();
   let timeSinceFirstPost = today.getTime() - new Date(2018, 10, 30).getTime();
   let timeSinceThisPost = today.getTime() - new Date(post.date).getTime();
   let staleness = timeSinceThisPost / timeSinceFirstPost;
-  return <h2 className={[sans.className, "text-[28px] font-black", "text-[--lightLink] dark:text-[--darkLink]"].join((" "))}
-    style={{
-      "--lightLink": lightRange(staleness).toString(),
-      "--darkkLink": darkRange(staleness).toString(),
-    } as React.CSSProperties}>
-    {post?.title || ''}
-  </h2>
+  return (
+    <h2
+      className={[
+        sans.className,
+        'text-[28px] font-black',
+        'text-[--lightLink] dark:text-[--darkLink]',
+      ].join(' ')}
+      style={
+        {
+          '--lightLink': lightRange(staleness).toString(),
+          '--darkLink': darkRange(staleness).toString(),
+        } as React.CSSProperties
+      }
+    >
+      {post?.title || ''}
+    </h2>
+  );
 }
 function PostSubtitle({ post }: { post: IPostData }) {
   return <p className="mt-1">{post.spoiler}</p>;
@@ -70,21 +79,31 @@ function PostSubtitle({ post }: { post: IPostData }) {
 function PostMeta({ post }: { post: IPostData }) {
   return (
     <p className="text-[13px] text-gray-700 dark:text-gray-300">
-      {new Date(post.date).toLocaleDateString("zh-CN", {
-        day: "numeric",
-        month: "long",
-        year: "numeric",
+      {new Date(post.date).toLocaleDateString('zh-CN', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
       })}
     </p>
   );
 }
 export default async function Home() {
   const posts = await getPosts();
-  return <div className="relative -top-[10px] flex flex-col gap-6">
-    {posts.map((post =>
-      <Link key={post.slug} className='block py-4 hover:scale-[1.005]' href={`/${post.slug}/`}>
-        <article> <PostTitle post={post} />      <PostMeta post={post} /><PostSubtitle post={post} /></article>
-      </Link>
-    ))}
-  </div>;
+  return (
+    <div className="relative -top-[10px] flex flex-col gap-6">
+      {posts.map((post) => (
+        <Link
+          key={post.slug}
+          className="block py-4 hover:scale-[1.005]"
+          href={`/${post.slug}/`}
+        >
+          <article>
+            <PostTitle post={post} />
+            <PostMeta post={post} />
+            <PostSubtitle post={post} />
+          </article>
+        </Link>
+      ))}
+    </div>
+  );
 }

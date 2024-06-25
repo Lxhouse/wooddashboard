@@ -14,14 +14,16 @@ export default function RootLayout({
         <body className="mx-auto max-w-2xl bg-[--bg] px-5 py-12 text-[--text]">
           <header className="mb-14 flex flex-row place-content-between">
             <HomeLink />
-            <span className="relative top-[4px] italic ">              by{" "}
-              <Link href="https://www.yuque.com/zhemu-emxtq" target="_blank" >
+            <span className="relative top-[4px] italic ">
+              by{' '}
+              <Link href="https://www.yuque.com/zhemu-emxtq" target="_blank">
                 <img
                   alt="Zhe Mu"
                   src="https://avatars.githubusercontent.com/u/82502913"
-                  className="relative -top-1 mx-1 inline h-8 w-8 rounded-full"
+                  className="relative -top-1 mx-1 inline h-8 w-8 rounded-full hover:scale-[1.05]"
                 />
-              </Link></span>
+              </Link>
+            </span>
           </header>
           <main>{children}</main>
         </body>
