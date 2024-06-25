@@ -16,7 +16,7 @@ export default function RootLayout({
             <HomeLink />
             <span className="relative top-[4px] italic ">
               by{' '}
-              <Link href="https://www.yuque.com/zhemu-emxtq" target="_blank">
+              <Link href="https://github.com/Lxhouse" target="_blank">
                 <img
                   alt="Zhe Mu"
                   src="https://avatars.githubusercontent.com/u/82502913"
