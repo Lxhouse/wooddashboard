@@ -45,7 +45,6 @@ export default async function postPage({ params }: { params: IPostData }) {
       throw e;
     }
   }
-
   const { content, data } = matter(file);
 
   return (
