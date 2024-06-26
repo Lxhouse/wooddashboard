@@ -12,12 +12,11 @@ jobs:
       - name: 获取源码  🛎️
         uses: actions/checkout@v3
       - name: Node环境版本 🗜️
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '20'
+          cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: 安装 Pnpm 🧬
-        uses: pnpm/action-setup@v2
-        id: pnpm-install
         run: npm install -g pnpm
       - name: 安装依赖 ⚙️
         run: pnpm install
