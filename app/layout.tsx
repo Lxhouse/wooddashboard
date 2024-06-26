@@ -10,7 +10,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   // 自定义加载器函数，直接返回外部图片的完整 URL
-  const customLoader = ({ src: string }) => src;
+  const customLoader = ({ src }: { src: string }) => src;
   return (
     <AutoRefresh>
       <html lang="en" className={serif.className}>
