@@ -17,14 +17,14 @@ const nextConfig = {
   assetPrefix,
   output: 'export',
   trailingSlash: true,
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'avatars.githubusercontent.com',
-      },
-    ],
-  },
+  // images: {
+  //   remotePatterns: [
+  //     {
+  //       protocol: 'https',
+  //       hostname: 'avatars.githubusercontent.com',
+  //     },
+  //   ],
+  // },
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   eslint: {
     ignoreDuringBuilds: true, // 忽略 eslint 检查
