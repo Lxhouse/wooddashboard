@@ -18,9 +18,7 @@ jobs:
       - name: 安装 Pnpm 🧬
         uses: pnpm/action-setup@v2
         id: pnpm-install
-        with:
-          version: 7
-          run_install: true
+        run: npm install -g pnpm
       - name: 安装依赖 ⚙️
         run: pnpm install
       - name: 打包 🏗️
