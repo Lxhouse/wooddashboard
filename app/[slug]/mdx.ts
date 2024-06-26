@@ -2,6 +2,7 @@ import * as jsx from 'acorn-jsx';
 import { Parser } from 'acorn';
 import { visit } from 'unist-util-visit';
 
+//@ts-ignore
 const parser = Parser.extend(jsx());
 
 const lang = new Set(['js', 'jsx', 'javascript']);

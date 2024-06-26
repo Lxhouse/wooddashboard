@@ -16,7 +16,7 @@ export const metadata = {
 };
 
 /** 获取文章列表 */
-export async function getPosts(): Promise<IPostData[]> {
+async function getPosts(): Promise<IPostData[]> {
   try {
     const entries = await readdir('./public/', { withFileTypes: true });
 

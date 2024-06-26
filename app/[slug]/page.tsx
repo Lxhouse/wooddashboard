@@ -67,15 +67,17 @@ export default async function postPage({ params }: { params: IPostData }) {
       <div className="markdown mt-10">
         <MDXRemote
           source={content}
+          //@ts-ignore
           components={{ a: Link, ...postComponents }}
           options={{
             mdxOptions: {
               useDynamicImport: true,
               remarkPlugins: [
                 remarkSmartpants,
-                [remarkMdxEvalCodeBlock, filename],
+                // [remarkMdxEvalCodeBlock, filename],
               ],
               rehypePlugins: [
+                //@ts-ignore
                 rehypeKatex,
                 [
                   rehypePrettyCode,

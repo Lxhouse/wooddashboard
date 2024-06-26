@@ -22,8 +22,6 @@ export function AlertModule() {
 
 下面这个是外部引入的组件 ：
 
-```js eval
 <p>
   <AlertModule />
 </p>
-```
