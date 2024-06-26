@@ -1,16 +1,17 @@
+'use client';
+
 import './globals.css';
 import AutoRefresh from './AutoRefresh';
 import { serif } from './fonts';
 import HomeLink from './HomeLink';
 import Link from './Link';
 import Image from 'next/image';
+import { imageLoader } from '../utils';
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // 自定义加载器函数，直接返回外部图片的完整 URL
-  const customLoader = ({ src }: { src: string }) => src;
   return (
     <AutoRefresh>
       <html lang="en" className={serif.className}>
@@ -21,7 +22,7 @@ export default function RootLayout({
               by{' '}
               <Link href="https://github.com/Lxhouse" target="_blank">
                 <Image
-                  loader={customLoader}
+                  loader={imageLoader}
                   width={32}
                   height={32}
                   alt="Zhe Mu"
