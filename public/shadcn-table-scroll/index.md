@@ -23,6 +23,34 @@ pnpm dlx shadcn-ui@latest add table
 
 如果你执行成功了，那么你将会在 '/src/components/ui'目录下看到这个组件 table.tsx，没错它就是我们要用的表格组件
 
+#### 原生修改表格滚动
+
+讲表格内容改为块状，这样才能控制他的高度和滚动样式，后续为 tr 和 thead 都加上 display: table 也就是告诉浏览器，我们要渲染的表格内行和格子都要按照表格自适应根据表头宽度去变化。
+
+```html
+<style>
+  table tbody {
+    display: block;
+    height: 195px;
+    overflow-y: scroll;
+  }
+
+  table thead,
+  tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  table thead {
+    width: calc(100% - 1em);
+  }
+  table thead th {
+    background: #ccc;
+  }
+</style>
+```
+
 #### 总结
 
 最后我们可以得到这样的一串拥有滚动表格内容的表格了，整体来说这个组件库给我的感觉就是一个灵活性很强的毛坯房，可以随意自己装修，如果是要进行 B 端比较规范化的业务开发还是首推 antd，如果有较高的定制化需求，那么不妨大胆尝试下 shadcn 说不定会给你惊喜。
