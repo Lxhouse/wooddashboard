@@ -5,11 +5,9 @@ spoiler: '会持续更新的手写题列表'
 cta: 'react'
 ---
 
-## 二四年八月
-
 ### 20240825
 
-#### 手写实现 instanceof
+#### 1. 手写实现 instanceof
 
 ```js
 /**
