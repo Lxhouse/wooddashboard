@@ -13,7 +13,7 @@ cta: 'webpack'
 
 ### 配置多入口
 
-1. 找到对应的 entry 设置多个入口文件 {page1:'./src/1.js',page2:'./src/2.js'}
+1. 找到对应的 entry 设置多个入口文件 "{page1:'./src/1.js',page2:'./src/2.js'}"
 2. 在 output 中设置 filename: '[name].[contenthash].js', // 根据入口名称生成文件名
 3. HtmlWebpackPlugin 设置多个打包产物（template，filename，chunks）
 
