@@ -5,8 +5,6 @@ spoiler: '基础的JS手写题必须会'
 cta: 'JS'
 ---
 
-### 基础篇
-
 #### 实现 instanceof
 
 instanceof 是 JavaScript 中用于判断一个对象是否是某个构造函数的实例的操作符
@@ -298,5 +296,158 @@ function shallowCopy(value) {
 
     return obj; // 返回新对象
   }
+}
+```
+
+#### 深拷贝
+
+```js
+// 基础版
+const deepClone = (target, cache = new WeakMap()) => {
+  if (target === null || typeof target !== 'object') {
+    return target;
+  }
+  if (cache.has(target)) {
+    return cache.get(target);
+  }
+  const copy = Array.isArray(target) ? [] : {};
+  cache.set(target, copy);
+
+  Object.keys(target).forEach(
+    (key) => (copy[key] = deepClone(target[key], cache))
+  );
+
+  return copy;
+};
+// 进阶版 多类型判断
+
+const deepCloneUp = (target, cache = new WeakMap()) => {
+  // 如果 target 是 null 或者不是对象，直接返回 target
+  if (target === null || typeof target !== 'object') {
+    return target;
+  }
+
+  // 处理循环引用
+  if (cache.has(target)) {
+    return cache.get(target);
+  }
+
+  // 处理特殊对象
+  if (target instanceof Date) {
+    return new Date(target.getTime());
+  }
+  if (target instanceof RegExp) {
+    return new RegExp(target.source, target.flags);
+  }
+  if (target instanceof Map) {
+    const mapCopy = new Map();
+    cache.set(target, mapCopy);
+    target.forEach((value, key) => {
+      mapCopy.set(deepClone(key, cache), deepClone(value, cache));
+    });
+    return mapCopy;
+  }
+  if (target instanceof Set) {
+    const setCopy = new Set();
+    cache.set(target, setCopy);
+    target.forEach((value) => {
+      setCopy.add(deepClone(value, cache));
+    });
+    return setCopy;
+  }
+
+  // 处理普通对象
+  const copy = Array.isArray(target)
+    ? []
+    : Object.create(Object.getPrototypeOf(target));
+  cache.set(target, copy);
+
+  // 复制属性，包括不可枚举属性和符号属性
+  Reflect.ownKeys(target).forEach((key) => {
+    copy[key] = deepClone(target[key], cache);
+  });
+
+  return copy;
+};
+```
+
+#### 发布订阅者模式
+
+```js
+class Emitter {
+  // 存储事件及其对应的回调函数
+  #handler = {};
+
+  // 订阅事件
+  $on(event, callBack) {
+    // 如果事件尚未注册，初始化为一个空数组
+    if (!this.#handler[event]) {
+      this.#handler[event] = [];
+    }
+    // 将回调函数添加到事件的回调列表中
+    this.#handler[event].push(callBack);
+  }
+
+  // 发布事件
+  $emit(event, ...args) {
+    // 获取事件对应的回调函数列表
+    const funcs = this.#handler[event];
+    // 如果存在回调函数列表，则依次调用每个回调
+    if (Array.isArray(funcs)) {
+      funcs.forEach((f) => f(...args));
+    }
+  }
+
+  // 取消订阅事件
+  $off(event, callBack) {
+    // 如果事件不存在，直接返回
+    if (!this.#handler[event]) return;
+
+    // 如果未传递回调函数，删除整个事件
+    if (!callBack) {
+      delete this.#handler[event];
+    } else {
+      // 否则，过滤掉指定的回调函数
+      this.#handler[event] = this.#handler[event].filter((e) => e !== callBack);
+    }
+  }
+
+  // 订阅一次性事件
+  $once(event, callBack) {
+    // 创建一个包装函数，调用后自动取消订阅
+    const onceEvent = (...args) => {
+      callBack(...args); // 执行原回调
+      this.$off(event, onceEvent); // 取消订阅
+    };
+    // 订阅该包装函数
+    this.$on(event, onceEvent);
+  }
+}
+```
+
+#### 可迭代对象
+
+```js
+function range(start, end) {
+  return {
+    [Symbol.iterator]: function () {
+      let current = start; // 当前值初始化为起始值
+
+      return {
+        next: () => {
+          if (current < end) {
+            return { value: current++, done: false }; // 返回当前值并递增
+          } else {
+            return { done: true }; // 迭代结束
+          }
+        },
+      };
+    },
+  };
+}
+
+// 使用自定义的可迭代对象
+for (const num of range(1, 5)) {
+  console.log(num); // 输出: 1, 2, 3, 4
 }
 ```
