@@ -1,102 +1,185 @@
 .markdown {
-    line-height: 28px;
-    --path: none;
-    --radius-top: 12px;
-    --radius-bottom: 12px;
-    --padding-top: 1rem;
-    --padding-bottom: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.75;
+  color: var(--text-primary);
 }
 
+/* 基础文本样式 */
 .markdown p {
-    @apply pb-8;
+  margin-bottom: 1.5rem;
 }
 
 .markdown a {
-    @apply border-b-[1px] border-[--link] text-[--link];
+  color: var(--link);
+  text-decoration: none;
+  border-bottom: 1px solid var(--link);
+  transition: opacity 0.2s;
 }
 
-.markdown hr {
-    @apply pt-8 opacity-60 dark:opacity-10;
+.markdown a:hover {
+  opacity: 0.8;
 }
 
+/* 标题样式 */
 .markdown h2 {
-    @apply mt-2 pb-8 text-3xl font-bold;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+  scroll-margin-top: 100px;
 }
 
 .markdown h3 {
-    @apply mt-2 pb-8 text-2xl font-bold;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+  scroll-margin-top: 100px;
 }
 
-.markdown h4 {
-    @apply mt-2 pb-8 text-xl font-bold;
+/* 代码样式 */
+.markdown code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875em;
 }
 
 .markdown :not(pre) > code {
-    border-radius: 10px;
-    background: var(--inlineCode-bg);
-    color: var(--inlineCode-text);
-    padding: 0.15em 0.2em 0.05em;
-    white-space: normal;
+  background: var(--inlineCode-bg);
+  color: var(--inlineCode-text);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  white-space: nowrap;
 }
 
 .markdown pre {
-    @apply -mx-4 mb-8 overflow-y-auto p-4 text-sm;
-    clip-path: var(--path);
-    border-top-right-radius: var(--radius-top);
-    border-top-left-radius: var(--radius-top);
-    border-bottom-right-radius: var(--radius-bottom);
-    border-bottom-left-radius: var(--radius-bottom);
-    padding-top: var(--padding-top);
-    padding-bottom: var(--padding-bottom);
+  margin: 2rem -1.5rem;
+  padding: 1.25rem;
+  background: var(--code-bg);
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+@media (min-width: 768px) {
+  .markdown pre {
+    margin: 2rem 0;
+  }
 }
 
 .markdown pre code {
-    width: auto;
+  display: inline-block;
+  min-width: 100%;
+  padding-right: 1rem;
 }
 
-.markdown blockquote {
-    @apply relative -left-2 -ml-4 mb-8 pl-4;
-    font-style: italic;
-    border-left: 3px solid hsla(0, 0%, 0%, 0.9);
-    border-left-color: inherit;
-    opacity: 0.8;
+/* 代码高亮 */
+.markdown pre [data-highlighted-line] {
+  background: var(--highlight-bg);
+  margin: 0 -1.25rem;
+  padding: 0 1.25rem;
+  width: calc(100% + 2.5rem);
+  display: inline-block;
+  border-left: 2px solid var(--link);
 }
 
-.markdown blockquote p {
-    margin: 0;
-    padding: 0;
-}
-
-.markdown p img {
-    margin-bottom: 0;
-}
-
-.markdown ul {
-    margin-top: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0;
-    margin-bottom: 1.75rem;
-    list-style-position: outside;
-    list-style-image: none;
-    list-style: disc;
+/* 列表样式 */
+.markdown ul,
+.markdown ol {
+  margin: 1.5rem 0;
+  padding-left: 1.5rem;
 }
 
 .markdown li {
-    margin-bottom: calc(1.75rem / 2);
+  margin-bottom: 0.5rem;
 }
 
+.markdown ul {
+  list-style-type: disc;
+}
+
+.markdown ol {
+  list-style-type: decimal;
+}
+
+/* 引用块样式 */
+.markdown blockquote {
+  margin: 2rem 0;
+  padding-left: 1.5rem;
+  border-left: 4px solid var(--text-secondary);
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* 图片样式 */
 .markdown img {
-    @apply mb-8;
-    max-width: 100%;
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 2rem 0;
 }
 
-.markdown pre [data-highlighted-line] {
-    margin-left: -16px;
-    padding-left: 12px;
-    border-left: 4px solid #ffa7c4;
-    background-color: #022a4b;
-    display: block;
-    padding-right: 1em;
+/* 水平线样式 */
+.markdown hr {
+  margin: 3rem 0;
+  border: 0;
+  border-top: 1px solid var(--border-color);
+}
+
+/* 目录样式 */
+.table-of-contents {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.table-of-contents a {
+  display: block;
+  padding: 0.375rem 0.75rem;
+  margin: 0.25rem 0;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.table-of-contents a:hover {
+  color: var(--text-primary);
+  background: var(--hover-bg);
+  border-left-color: var(--link);
+}
+
+/* 响应式调整 */
+@media (max-width: 1024px) {
+  .markdown {
+    font-size: 1rem;
+  }
+
+  .markdown h2 {
+    font-size: 1.75rem;
+  }
+
+  .markdown h3 {
+    font-size: 1.375rem;
+  }
+}
+
+/* 滚动条样式 */
+.markdown pre::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.markdown pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.markdown pre::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+.markdown pre {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
 }
